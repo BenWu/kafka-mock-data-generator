@@ -27,6 +27,7 @@ STRING_TYPES = {
     "MEDIUMBLOB",
     "LONGBLOB",
     "JSON",
+    "STRING",
 }
 
 DATETME_TYPES = {"DATETIME", "TIMESTAMP"}
@@ -167,10 +168,9 @@ class DatetimeField(TableField):
 
 
 class TableSchema:
-    fields: List[TableField] = []
-
     def __init__(self, name: str):
         self.name = name
+        self.fields: List[TableField] = []
 
     def add_field(self, field: TableField):
         self.fields.append(field)
@@ -182,15 +182,10 @@ class TableSchema:
         return f"{self.name}: {[f.name for f in self.fields]}"
 
 
-@click.command()
-@click.option(
-    "--schema-file",
-    required=True,
-    type=Path,
-    help="Path to config file containing table definitions",
-)
-@click.option("--seed", type=int, help="Optional seed for random number generator")
-def parse_config(schema_file, seed):
+def parse_config(schema_file, seed=None):
+    if seed is not None:
+        random.seed(seed)
+
     with open(schema_file, "r") as f:
         config = yaml.safe_load(f)
 
@@ -233,5 +228,17 @@ def parse_config(schema_file, seed):
     return tables
 
 
+@click.command()
+@click.option(
+    "--schema-file",
+    required=True,
+    type=Path,
+    help="Path to config file containing table definitions",
+)
+@click.option("--seed", type=int, help="Optional seed for random number generator")
+def entrypoint(schema_file, seed):
+    parse_config(schema_file, seed)
+
+
 if __name__ == "__main__":
-    parse_config()
+    entrypoint()

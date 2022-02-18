@@ -1,9 +1,9 @@
 from setuptools import setup
 
 setup(
-    name='mock-data-producer',
+    name='kafka-mock-data-generator',
     version='0.1',
-    packages=['mock_data_producer'],
+    packages=['kafka_mock_data_generator'],
     url='',
     license='MIT',
     author='Ben Wu',
