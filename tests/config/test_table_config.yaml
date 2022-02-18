@@ -1,0 +1,95 @@
+client:
+  id:
+    type: bigint(20)
+    min: 1
+    max: 1000
+  first_name:
+    type: varchar(255)
+    min: 3
+    max: 10
+    chars: letters
+  last_name:
+    type: varchar(255)
+    min: 3
+    max: 10
+    chars: letters
+  middle_name:
+    type: varchar(60)
+    min: 3
+    max: 10
+    chars: letters
+  prefix:
+    type: varchar(167)
+    min: 3
+    max: 3
+    chars: ascii
+  user_id:
+    type: bigint(20)
+    min: 1
+    max: 1000
+  created_at:
+    type: datetime
+    min: 2022-01-01
+    max: 2022-03-01
+  updated_at:
+    type: datetime
+    min: 2022-01-01
+    max: 2022-03-01
+  title:
+    type: varchar(255)
+    min: 8
+    max: 30
+    chars: ascii
+  group:
+    type: varchar(7)
+    enum:
+      - A
+      - B
+      - C
+  company_id:
+    type: bigint(20)
+    min: 1
+    max: 1000
+  account_id:
+    type: bigint(20)
+    min: 1
+    max: 1000
+  email_address_id:
+    type: bigint(20)
+    min: 1
+    max: 1000
+  phone_number:
+    type: bigint(20)
+    min: 10
+    max: 10
+  outstanding_balance:
+    type: decimal(20,10)
+    min: 1
+    max: 10000
+  notes:
+    type: text
+    min: 100
+    max: 300
+    chars: ascii
+event:
+  user_id:
+    type: bigint(20)
+    min: 1
+    max: 1000
+  created_at:
+    type: datetime
+    min: 2022-01-01
+    max: 2022-03-01
+  updated_at:
+    type: datetime
+    min: 2022-01-01
+    max: 2022-03-01
+  object_id:
+    type: int
+    min: 1
+    max: 1000
+  type:
+    type: string
+    enum:
+      - click
+      - view
