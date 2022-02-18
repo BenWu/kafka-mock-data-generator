@@ -7,20 +7,26 @@ Random number generation uses a uniform distribution.
 
 ## Usage
 
+Setup:
+```sh
+pip install -r requirements.txt
+pip install -e .
+```
+
 ### Data Generator
 
-The data generator uses a yaml config ([example](./config/source_config.yaml)) to create a table
+The [data generator](kafka_mock_data_generator/data_generator/data_generator.py) uses a yaml config ([example](./config/source_config.yaml)) to create a table
 with associated fields to generate random data for.
 
 Example usage:
 ```sh
-./kafka_mock_data_generator/data_generator/data_generator.py \
+kafka_mock_data_generator/data_generator/data_generator.py \
   --schema-file config/source_config.yaml
 ```
 
 See available options with:
 ```sh
-./kafka_mock_data_generator/data_generator/data_generator.py --help
+kafka_mock_data_generator/data_generator/data_generator.py --help
 ```
 
 Supported types are integers, floats, strings, and datetime/timestamps.  
@@ -38,13 +44,14 @@ Supported configs:
 
 ### Kafka Producer
 
-The Kafka producer uses the data generator to send records to topics in a Kafka cluster.
+The [Kafka producer](kafka_mock_data_generator/kafka_producer/producer.py) uses the data generator to send records to topics in a Kafka cluster.
 This uses librdkafka and configurations must be provided with a config file ([example](./config/producer.local.config)).
 Available configurations can be found at https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md.
+Time between each record is log normal distributed (mu=0, sigma=0.2).
 
 Example usage:
 ```sh
-./kafka_mock_data_generator/kafka_producer/producer.py \
+kafka_mock_data_generator/kafka_producer/producer.py \
   --table-config config/source_config.yaml \
   --kafka-config=config/producer.local.config \
   --topic-template mock_test1.{name} \
@@ -54,13 +61,5 @@ Example usage:
 
 See available options with:
 ```sh
-./kafka_mock_data_generator/kafka_producer/producer.py --help
-```
-
-## Development
-
-Setup:
-```sh
-pip install -r requirements.txt
-pip install -e .
+kafka_mock_data_generator/kafka_producer/producer.py --help
 ```

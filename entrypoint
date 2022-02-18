@@ -1,0 +1,6 @@
+#1/bin/bash
+
+python3 -m kafka_mock_data_generator.kafka_producer.producer \
+    --table-config config/source_config.yaml \
+    --kafka-config config/producer.local.config \
+    --verbose
