@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+
+import json
 import re
 import random
 import string
@@ -224,7 +227,7 @@ def parse_config(schema_file: Path, seed: int = None):
             table_schema.add_field(field)
 
         tables.append(table_schema)
-    pass
+
     return tables
 
 
@@ -237,7 +240,12 @@ def parse_config(schema_file: Path, seed: int = None):
 )
 @click.option("--seed", type=int, help="Optional seed for random number generator")
 def entrypoint(schema_file, seed):
-    parse_config(schema_file, seed)
+    tables = parse_config(schema_file, seed)
+
+    for table in tables:
+        print(f"{table.name}:")
+        print(json.dumps(table.generate_value(), indent=2))
+        print("")
 
 
 if __name__ == "__main__":
