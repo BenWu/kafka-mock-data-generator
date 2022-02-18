@@ -45,7 +45,7 @@ class TableField(ABC):
     def generate(self):
         pass
 
-    def unrecognized_option(self, option):
+    def unrecognized_option(self, option: str):
         if option != "type":
             print(f"Unrecognized option {option} for {self.__class__} {self.name}")
 
@@ -172,17 +172,17 @@ class TableSchema:
         self.name = name
         self.fields: List[TableField] = []
 
+    def __str__(self):
+        return f"{self.name}: {[f.name for f in self.fields]}"
+
     def add_field(self, field: TableField):
         self.fields.append(field)
 
     def generate_value(self):
         return {field.name: field.generate() for field in self.fields}
 
-    def __str__(self):
-        return f"{self.name}: {[f.name for f in self.fields]}"
 
-
-def parse_config(schema_file, seed=None):
+def parse_config(schema_file: Path, seed: int = None):
     if seed is not None:
         random.seed(seed)
 

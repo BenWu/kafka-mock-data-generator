@@ -22,7 +22,7 @@ client:
     type: varchar(167)
     min: 3
     max: 3
-    chars: ascii
+    chars: letters
   user_id:
     type: bigint(20)
     min: 1
@@ -39,7 +39,7 @@ client:
     type: varchar(255)
     min: 8
     max: 30
-    chars: ascii
+    chars: letters
   group:
     type: varchar(7)
     enum:
@@ -70,8 +70,12 @@ client:
     type: text
     min: 100
     max: 300
-    chars: ascii
+    chars: letters
 event:
+  id:
+    type: bigint(20)
+    min: 1
+    max: 1000
   user_id:
     type: bigint(20)
     min: 1
