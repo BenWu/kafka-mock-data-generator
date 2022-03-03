@@ -33,6 +33,7 @@ class TestDataGenerator(TestCase):
             "notes",
         }
         expected_event_fields = {
+            "id",
             "user_id",
             "created_at",
             "updated_at",
